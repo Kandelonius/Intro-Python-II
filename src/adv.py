@@ -1,4 +1,10 @@
 from room import Room
+from player import Player
+import argparse
+import sys
+
+# Construct and parse parameters
+ap = argparse.ArgumentParser()
 
 # Declare all the rooms
 
@@ -20,6 +26,8 @@ to north. The smell of gold permeates the air."""),
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
+# for n in room:
+#     print(room[n])
 
 
 # Link rooms together
@@ -33,6 +41,8 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+darkharden = Player("Darkharden", room['outside'])
+print(darkharden)
 #
 # Main
 #
@@ -49,3 +59,5 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
