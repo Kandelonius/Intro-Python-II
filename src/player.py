@@ -8,3 +8,9 @@ class Player():
 
     def __str__(self):
         return f"Name: ${self.name}, Location: {self.location}"
+
+    def get_room_name(self, room):
+        print(f"Location is {room.room_name}")
+
+    def get_room_description(self, room):
+        print(f"Description: {room.room_description}")

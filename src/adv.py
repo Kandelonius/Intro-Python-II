@@ -41,23 +41,33 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-darkharden = Player("Darkharden", room['outside'])
-print(darkharden)
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+darkharden = Player("Darkharden", room['outside'])
+# print(darkharden)
 
 # Write a loop that:
 #
+print(f"Movement Commands are:\nn for north\nw for west\ns for south\ne for east")
+print(f"Interaction Commands are:\nget (item name)\nuse (item name")
+print(f"System Commands are:\nq to quit")
+while True:
 # * Prints the current room name
+    darkharden.get_room_name(darkharden.location)
 # * Prints the current description (the textwrap module might be useful here).
+    darkharden.get_room_description(darkharden.location)
 # * Waits for user input and decides what to do.
+    action = input(f"What will you do? ")
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+    if action == 'q':
+        break
+
 
 
