@@ -1,8 +1,10 @@
 from room import Room
 from player import Player
 from item import Item
+from playerstash import Inventory
 
 # Declare all the rooms
+from src import playerstash
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -19,7 +21,7 @@ the distance, but there is no way across the chasm."""),
 to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
+chamber! Sadly, it has already been mostly emptied by
 earlier adventurers. The only exit is to the south."""),
 
     'incinerator': Room("Incinerator Room", """I believe this place has ill-purpose. 
@@ -28,32 +30,38 @@ earlier adventurers. The only exit is to the south."""),
 # for n in room:
 #     print(room[n])
 
-items = {
-    'candelabra': Item("candelabra", """The wax has dried out and it's not useful 
+item = {
+    'candelabra': Item("candelabra", 'overlook', """The wax has dried out and it's not useful 
     as a light source."""),
 
-    'snow_globe': Item("snow globe", """There appears to be water and small white 
+    'snow_globe': Item("snow globe", 'foyer', """There appears to be water and small white 
     flakes, but there are palm trees on a beach as well."""),
 
-    'dagger': Item("dagger", """It's rather dull."""),
+    'dagger': Item("dagger", 'overlook', """It's rather dull."""),
 
-    'broken_compas': Item("broken compass", """You wouldn't really need this in this 
+    'broken_compas': Item("broken compass", 'narrow', """You wouldn't really need this in this 
     place anyway."""),
 
-    'wirts_leg': Item("Wirt's leg", """Hmm, where is that tome of town portal?"""),
+    'wirts_leg': Item("Wirt's leg", 'overlook', """Hmm, where is that tome of town portal?"""),
 
-    'cell_phone': Item("cell phone", """No reception, it looks like it wants me to enter 
+    'cell_phone': Item("cell phone", 'narrow', """No reception, it looks like it wants me to enter 
     a number."""),
 
-    'teddy_bear': Item("Sir Stuffs-a-lot", """How do I know that?"""),
+    'teddy_bear': Item("Sir Stuffs-a-lot", 'foyer', """How do I know that?"""),
 
-    'time_piece': Item("Trollex", """a cheap knock-off"""),
+    'time_piece': Item("Trollex", 'treasure', """a cheap knock-off"""),
 
-    'lucky_cat': Item("lucky neko", """This one has its left paw raised"""),
+    'lucky_cat': Item("lucky neko", 'foyer', """This one has its left paw raised"""),
 
-    'gold_coin': Item("Inca Gold", """This looks valuable, I hope I'm not asked to 
+    'gold_coin': Item("Inca Gold", 'treasure', """This looks valuable, I hope I'm not asked to 
     destroy it."""),
 }
+
+# room['outside'].m_to = playerstash['backpack']
+# room['foyer'].m_to = playerstash['backpack']
+# room['overlook'].m_to = playerstash['backpack']
+# room['narrow'].m_to = playerstash['backpack']
+# room['treasure'].m_to = playerstash['backpack']
 
 # Link rooms together
 
@@ -66,6 +74,7 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 room['incinerator'].u_to = room['outside']
+room['incinerator'].u_to = room['outside']
 
 #
 # Main
@@ -73,14 +82,16 @@ room['incinerator'].u_to = room['outside']
 
 # Make a new player object that is currently in the 'outside' room.
 darkharden = Player("Darkharden", room['outside'])
+backpack = Inventory(room['overlook'], False)
 cardinal_directions = ['n', 'w', 's', 'e']
 # print(darkharden)
 
-# Write a loop that:
-#
 print(f"Movement Commands are:\nn for north\nw for west\ns for south\ne for east")
 print(f"Interaction Commands are:\nget (item name)\nuse (item name")
 print(f"System Commands are:\nq to quit")
+
+# Write a loop that:
+#
 while True:
 # * Prints the current room name
     darkharden.get_room_name(darkharden.location)
@@ -90,9 +101,17 @@ while True:
     action = input(f"What will you do?\n").strip().lower().split()
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
+# Print an error message if the movement isn't allowed.
     if action[0] in cardinal_directions:
         darkharden.try_move(action[0])
-# Print an error message if the movement isn't allowed.
+#
+# allow player to obtain backpack
+    if action[0] == 'get' and action[1] == 'backpack' and darkharden.get_room_name(darkharden.location) == 'overlook':
+        backpack = Inventory(darkharden, True)
+        darkharden.get_location(backpack.location)
+
+    if action[0] == 'backpack':
+        backpack.get_location(backpack.location)
 #
 # If the user enters "q", quit the game.
     if action[0] == 'q':

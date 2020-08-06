@@ -1,7 +1,7 @@
 # Write a class to hold player information, e.g. what room they are in
 # currently.
 
-class Player():
+class Player:
     def __init__(self, name, location):
         self.name = name
         self.location = location
@@ -10,10 +10,10 @@ class Player():
         return f"Name: ${self.name}, Location: {self.location}"
 
     def get_room_name(self, room):
-        print(f"You find yourself in the {room.room_name}")
+        print(f"You find yourself in the {room.name}")
 
     def get_room_description(self, room):
-        print(f"You observe {room.room_description}")
+        print(f"You observe {room.description}")
 
     def try_move(self, direction):
         attribute = direction + '_to'
@@ -21,7 +21,7 @@ class Player():
             self.set_location(getattr(self.location, attribute)) # getattr builtin gets attribute
             # self.set_location(room['outside'].n_to)
         else:
-            print(f"I'm sorry {self.name}, I'm afraid I can't do that.")
+            print(f"Sorry {self.name}, I'm afraid you can't do that.")
 
     def set_location(self, location):
         self.location = location

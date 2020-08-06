@@ -3,11 +3,11 @@
 
 class Room:
     def __init__(self, room_name, room_description):
-        self.room_name = room_name
-        self.room_description = room_description
+        self.name = room_name
+        self.description = room_description
 
-    def __str__(self) -> str:
-        return 'Room(room_name =' + self.room_name + ', room_description =' + self.room_description + ')'
+    # def __str__(self) -> str:
+    #     return 'Room(room_name =' + self.room_name + ', room_description =' + self.room_description + ')'
 
     # def get_room_name(self):
     #     print(f"Location is {self.room_name}")
