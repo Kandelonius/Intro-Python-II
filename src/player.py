@@ -10,7 +10,18 @@ class Player():
         return f"Name: ${self.name}, Location: {self.location}"
 
     def get_room_name(self, room):
-        print(f"Location is {room.room_name}")
+        print(f"You find yourself in the {room.room_name}")
 
     def get_room_description(self, room):
-        print(f"Description: {room.room_description}")
+        print(f"You observe {room.room_description}")
+
+    def try_move(self, direction):
+        attribute = direction + '_to'
+        if hasattr(self.location, attribute): # hasattr builtin checks for an attribute
+            self.set_location(getattr(self.location, attribute)) # getattr builtin gets attribute
+            # self.set_location(room['outside'].n_to)
+        else:
+            print(f"I'm sorry {self.name}, I'm afraid I can't do that.")
+
+    def set_location(self, location):
+        self.location = location

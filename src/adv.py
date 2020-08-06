@@ -32,7 +32,7 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
+room['outside'].n_to = room['foyer'] # has attribute .n_to
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
 room['foyer'].e_to = room['narrow']
@@ -47,6 +47,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 darkharden = Player("Darkharden", room['outside'])
+cardinal_directions = ['n', 'w', 's', 'e']
 # print(darkharden)
 
 # Write a loop that:
@@ -60,13 +61,15 @@ while True:
 # * Prints the current description (the textwrap module might be useful here).
     darkharden.get_room_description(darkharden.location)
 # * Waits for user input and decides what to do.
-    action = input(f"What will you do? ")
+    action = input(f"What will you do?\n").strip().lower().split()
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
+    if action[0] in cardinal_directions:
+        darkharden.try_move(action[0])
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
-    if action == 'q':
+    if action[0] == 'q':
         break
 
 
