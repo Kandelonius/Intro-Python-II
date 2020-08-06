@@ -1,13 +1,25 @@
 class Inventory:
-    def __init__(self, location, obtained):
-        self.location = location
+    def __init__(self, obtained):
+        # self.location = location
         self.obtained = obtained
 
-    def __str__(self):
-        return f"Location: ${self.location}"
+    # def __str__(self):
+    #     return f"Location: ${self.location}"
 
-    def get_location(self, room):
-        if self.obtained == False:
-            print(f"The backpack lies in the {room.name}")
+    # def get_location(self, location):
+    #     if self.obtained == False:
+    #         print(f"The backpack lies in the {location.name}")
+    #     else:
+    #         print(f"{location.name} carries the loot")
+
+    def get_obtained(self):
+        if self.obtained:
+            print("obtained")
         else:
-            print(f"Darkharden carries the loot")
+            print("not obtained")
+
+    # def set_location(self, location):
+    #     self.location = location
+
+    def set_obtained(self, obtained):
+        self.obtained = obtained

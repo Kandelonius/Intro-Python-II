@@ -1,23 +1,22 @@
-from room import Room
-from player import Player
 from item import Item
+from player import Player
 from playerstash import Inventory
+from room import Room
 
 # Declare all the rooms
-from src import playerstash
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+    'outside': Room("Outside Cave Entrance",
+                    "North of you, the cave mount beckons"),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
+    'foyer': Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east. The door outside is now locked."""),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm."""),
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
+    'narrow': Room("Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air."""),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
@@ -65,7 +64,7 @@ item = {
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer'] # has attribute .n_to
+room['outside'].n_to = room['foyer']  # has attribute .n_to
 # room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
 room['foyer'].e_to = room['narrow']
@@ -82,7 +81,7 @@ room['incinerator'].u_to = room['outside']
 
 # Make a new player object that is currently in the 'outside' room.
 darkharden = Player("Darkharden", room['outside'])
-backpack = Inventory(room['overlook'], False)
+backpack = Inventory(False)
 cardinal_directions = ['n', 'w', 's', 'e']
 # print(darkharden)
 
@@ -93,29 +92,30 @@ print(f"System Commands are:\nq to quit")
 # Write a loop that:
 #
 while True:
-# * Prints the current room name
+    # * Prints the current room name
     darkharden.get_room_name(darkharden.location)
-# * Prints the current description (the textwrap module might be useful here).
+    # * Prints the current description (the textwrap module might be useful here).
     darkharden.get_room_description(darkharden.location)
-# * Waits for user input and decides what to do.
+    # * Waits for user input and decides what to do.
     action = input(f"What will you do?\n").strip().lower().split()
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
+    #
+    # If the user enters a cardinal direction, attempt to move to the room there.
+    # Print an error message if the movement isn't allowed.
     if action[0] in cardinal_directions:
         darkharden.try_move(action[0])
-#
-# allow player to obtain backpack
-    if action[0] == 'get' and action[1] == 'backpack' and darkharden.get_room_name(darkharden.location) == 'overlook':
-        backpack = Inventory(darkharden, True)
-        darkharden.get_location(backpack.location)
+    #
+    # allow player to obtain backpack
+    if action[0] == 'get' and action[1] == 'backpack' and darkharden.clean_name(darkharden.location) == 'Grand Overlook':
+        backpack.obtained = True
+        # backpack.set_location('Darkharden')
+        # backpack.set_obtained(True)
+        # darkharden.get_location(backpack.location)
 
     if action[0] == 'backpack':
-        backpack.get_location(backpack.location)
-#
-# If the user enters "q", quit the game.
+        print(darkharden.location)
+        backpack.get_obtained()
+        # backpack.get_location(backpack.location)
+    #
+    # If the user enters "q", quit the game.
     if action[0] == 'q':
         break
-
-
-
