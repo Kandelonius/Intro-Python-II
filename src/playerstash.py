@@ -1,7 +1,7 @@
 class Inventory:
     def __init__(self, obtained):
-        # self.location = location
         self.obtained = obtained
+        self.stash = []
 
     # def __str__(self):
     #     return f"Location: ${self.location}"
