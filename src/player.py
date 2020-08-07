@@ -13,7 +13,7 @@ class Player:
         print(f"You find yourself in the {room.name}")
 
     def clean_name(self, room):
-        return(room.name)
+        return (room.name)
 
     def get_room_description(self, room):
         print(f"You observe {room.description}")

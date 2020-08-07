@@ -1,5 +1,6 @@
 class Item:
-    def __init__(self, name, location, description):
+    def __init__(self, id, name, location, description):
+        self.id = id
         self.name = name
         self.location = location
         self.description = description
@@ -7,3 +8,6 @@ class Item:
 
     def get_location(self, room):
         return room.name
+
+    def __str__(self):
+        return f"{self.name}, {self.description}"
