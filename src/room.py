@@ -12,6 +12,10 @@ class Room:
         self.room_items.append(treasure)
         print(f"added {treasure.name}")
 
+    def remove_from_room(self, treasure):
+        self.room_items.remove(treasure)
+        print(f"removed {treasure.name}")
+
     # def __str__(self) -> str:
     #     return 'Room(room_name =' + self.room_name + ', room_description =' + self.room_description + ')'
 

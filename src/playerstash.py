@@ -18,8 +18,9 @@ class Inventory:
         else:
             print("not obtained")
 
-    # def set_location(self, location):
-    #     self.location = location
+    def add_to_stash(self, treasure):
+        self.stash.append(treasure)
+        print(f"added {treasure.name}")
 
     def set_obtained(self, obtained):
         self.obtained = obtained

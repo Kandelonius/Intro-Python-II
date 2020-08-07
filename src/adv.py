@@ -104,13 +104,16 @@ cardinal_directions = ['n', 'w', 's', 'e']
 player_location = darkharden.clean_name(darkharden.location)
 
 print(f"Movement Commands are:\nn for north\nw for west\ns for south\ne for east")
-print(f"Interaction Commands are:\nget (item name)\nuse (item name")
+print(f"Interaction Commands are:\nget (item number)\nuse (item name")
+print(f"Search Command is:\nsearch room")
 print(f"System Commands are:\nq to quit")
 
 # Write a loop that:
 #
 while True:
     darkharden.get_room_name(darkharden.location)
+    possible_items = darkharden.location.room_items
+    print(len(backpack.stash))
     #
     darkharden.get_room_description(darkharden.location)
     # * Waits for user input and decides what to do.
@@ -125,8 +128,13 @@ while True:
     if action[0] == 'backpack':
         backpack.get_obtained()
     #
-    if action[0] == 'search' and room[action[1]] == darkharden.location:
-        room[action[1]].print_items()
+    if action[0] == 'search' and action[1] == 'room':
+        darkharden.location.print_items()
+    #
+    if action[0] == 'get':
+        # and action[1] == darkharden.location.room_items
+        backpack.add_to_stash(possible_items[int(action[1])])
+        darkharden.location.remove_from_room(possible_items[int(action[1])])
 
     #
     # If the user enters "q", quit the game.
